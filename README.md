@@ -37,23 +37,23 @@
 ## Структура проекта
 ```
 breast_cancer_pipeline/
-+-- dags/                     # Airflow DAG
+ -- dags/                     # Airflow DAG
 ¦   L-- pipeline_dag.py
-+-- etl/                      # ETL и ML-скрипты
-¦   +-- load_data.py
-¦   +-- preprocess.py
-¦   +-- train_model.py
+--- etl/                      # ETL и ML-скрипты
+¦   --- load_data.py
+¦   --- preprocess.py
+¦   --- train_model.py
 ¦   L-- evaluate.py
-+-- etl/data/                 
-¦   +-- raw/                  # скачанные сырые CSV
+--- etl/data/                 
+¦   --- raw/                  # скачанные сырые CSV
 ¦   L-- processed/            # нормализованные CSV
-+-- results/                  
-¦   +-- model/                # сохранённая модель и тестовые выборки
+--- results/                  
+¦   --- model/                # сохранённая модель и тестовые выборки
 ¦   L-- metrics/              # JSON с метриками
-+-- logs/                     # логи Airflow
-+-- config.yaml               # параметры (пути, URL, S3 и т.д.)
+--- logs/                     # логи Airflow
+--- config.yaml               # параметры (пути, URL, S3 и т.д.)
 +-- requirements.txt          
-L-- README.md                 # эта документация
+--- README.md                 # эта документация
 ```
 
 ---
@@ -109,7 +109,6 @@ flowchart TD
 
 ### Интеграция и хранение артефактов
 - По умолчанию сохраняем локально в `results/`.
-- Для S3 (опционально) — добавить в `config.yaml` раздел `s3:` и скрипт загрузки (`boto3`).
 
 ---
 
@@ -117,7 +116,7 @@ flowchart TD
 
 1. **Активировать окружение**:
    ```bash
-   cd /home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline
+   cd /home/ksaga/DE/breast_cancer_pipeline
    python3 -m venv venv
    source venv/bin/activate
    pip install -r requirements.txt
@@ -158,7 +157,6 @@ flowchart TD
 | Train Model     | Данные несбалансированы, сходимость не достигнута | `max_iter=1000`, Stratified split, логирование |
 | Evaluate        | Пустые `X_test`/`y_test`                        | Проверка размера выборки, ошибки exit      |
 | Airflow DAG     | Зависимость сломана                             | `depends_on_past=False`, `catchup=False`  |
-| S3 Upload (опц.)| Нет доступа к AWS, неверные креды              | Чтение из `~/.aws/credentials`, логирование |
 
 ---
 
