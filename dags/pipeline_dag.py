@@ -25,7 +25,7 @@ with DAG(
             '--url https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data '
             '--out_dir {{ params.project_path }}/etl/data/raw'
         ),
-        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline'}
+        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline'}
     )
 
     preprocess = BashOperator(
@@ -35,7 +35,7 @@ with DAG(
             '--in_dir {{ params.project_path }}/etl/data/raw '
             '--out_dir {{ params.project_path }}/etl/data/processed'
         ),
-        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline'}
+        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline'}
     )
 
     train = BashOperator(
@@ -45,7 +45,7 @@ with DAG(
             '--data_dir {{ params.project_path }}/etl/data/processed '
             '--model_dir {{ params.project_path }}/results/model'
         ),
-        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline'}
+        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline'}
     )
 
     evaluate = BashOperator(
@@ -55,7 +55,7 @@ with DAG(
             '--model_dir {{ params.project_path }}/results/model '
             '--out_file {{ params.project_path }}/results/metrics/metrics.json'
         ),
-        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline'}
+        params={'project_path': '/home/ksaga/DE/breast_cancer_pipeline'}
     )
 
     load >> preprocess >> train >> evaluate
