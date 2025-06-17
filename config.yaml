@@ -1,0 +1,12 @@
+data:
+  url: "https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
+  raw_dir: "etl/data/raw"
+  processed_dir: "etl/data/processed"
+
+model:
+  output_dir: "results/model"
+  metrics_file: "results/metrics/metrics.json"
+
+airflow:
+  dags_folder: "/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline/dags"
+  logs_folder: "/home/ksaga/DE/breast_cancer_pipeline/breast_cancer_pipeline/logs"
