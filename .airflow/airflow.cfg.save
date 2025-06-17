@@ -22,10 +22,10 @@ hostname_callable = airflow.utils.net.getfqdn
 
 # A callable to check if a python file has airflow dags defined or not and should
 # return ``True`` if it has dags otherwise ``False``.
-# If this is not provided, Airflow uses its own heuristic rules.
+# ^x:If this is not provided, Airflow uses its own heuristic rules.
 # 
 # The function should have the following signature
-# 
+ЖЭ# 
 # .. code-block:: python
 # 
 #     def func_name(file_path: str, zip_file: zipfile.ZipFile | None = None) -> bool: ...
@@ -343,7 +343,7 @@ max_num_rendered_ti_fields_per_task = 30
 #
 # Variable: AIRFLOW__CORE__XCOM_BACKEND
 #
-xcom_backend = airflow.models.xcom.BaseXCom
+xcom_backend = airflow.sdk.execution_time.xcom.BaseXCom
 
 # By default Airflow plugins are lazily-loaded (only loaded when required). Set it to ``False``,
 # if you want to load plugins whenever 'airflow' is invoked via cli or loaded from module.
@@ -1428,8 +1428,7 @@ jwt_secret = ALAm0NiR2rCSTcCzG7aTpg==
 #
 # Example: jwt_algorithm = "EdDSA" or "HS512"
 #
-# Variable: AIRFLOW__API_AUTH__JWT_ALGORITHM
-#
+# Variable: AIRFLOW
 # jwt_algorithm = 
 
 # The Key ID to place in header when generating JWTs. Not used in the validation path.
@@ -2327,5 +2326,5 @@ xcom_objectstorage_compression =
 #
 # Variable: AIRFLOW__STANDARD__VENV_INSTALL_METHOD
 #
-venv_install_method = auto
+venv_install_method
 

@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
 import argparse
 import pandas as pd
 import requests
+from io import StringIO  
 
 def main(url: str, out_dir: str):
     os.makedirs(out_dir, exist_ok=True)
     response = requests.get(url)
     response.raise_for_status()
 
-    # в исходном файле нет заголовков
+    # В исходном файле нет заголовков
     columns = [
         'id', 'diagnosis',
         *(f'{stat}_{agg}' for agg in ['mean','se','worst'] for stat in [
@@ -18,7 +21,7 @@ def main(url: str, out_dir: str):
         ])
     ]
     df = pd.read_csv(
-        pd.compat.StringIO(response.text),
+        StringIO(response.text),  # <-- исправлено
         header=None,
         names=columns
     )
@@ -28,7 +31,7 @@ def main(url: str, out_dir: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Load WDBC data from UCI")
-    parser.add_argument('--url',      type=str, required=True, help="URL to dataset")
-    parser.add_argument('--out_dir',  type=str, required=True, help="Directory to save raw CSV")
+    parser.add_argument('--url',     type=str, required=True, help="URL to dataset")
+    parser.add_argument('--out_dir', type=str, required=True, help="Directory to save raw CSV")
     args = parser.parse_args()
     main(args.url, args.out_dir)
